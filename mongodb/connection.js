@@ -10,6 +10,8 @@ const mongoDB_connection = async()=>{
     const dbName = process.env.db_name;
     const url = `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbName}?retryWrites=true&w=majority`
     try{
+
+        // mongoose.connect() => Connects to mongodb database
         const connection = await mongoose.connect(url);
         console.log("Database connected successfully");
     } catch (error){
