@@ -18,7 +18,6 @@ const send_data = async (req, res)=>{
         const existingData = await Data.findOne({
             data: request.data
         });
-        console.log(existingData)
         if(existingData == null){
             // Saves new instance
             const saveData = request.save(); 
