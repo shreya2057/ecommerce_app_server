@@ -1,12 +1,20 @@
 import Data from "../model/data_model.js"
 
-const get_data = (req, res)=>{
-    res.send("Hello World from server");
-}
+const get_data = async (req, res)=>{
+    try{
+        // Finding all data
+        const allData = await Data.find();
+        res.json({body: allData, status: 200});
+    } catch(error){
+        res.json({messgae: error.messgae, status: 400});
+    }
+    
+};
 
 const send_data = async (req, res)=>{
     try {
         const request = Data(req.body)
+        // Finding single data
         const existingData = await Data.findOne({
             data: request.data
         });
@@ -20,6 +28,6 @@ const send_data = async (req, res)=>{
     } catch(error){
         res.json({messgae: error.messgae, status: 400});
     }
-}
+};
 
 export default {get_data, send_data};
