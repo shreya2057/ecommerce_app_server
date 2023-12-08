@@ -16,6 +16,9 @@ app.use(express.json())
 //              the application.
 app.use('/data', data_routes);
 
+// Handling routes that does not exist
+app.use((_, res)=>res.json({message: "Page not found", status: 404}));
+
 // app.listen() -> The function that binds and listen to connections
 //                 on specified host and port.
 app.listen(port, ()=>console.log(`Server listening to the port ${port}`));
