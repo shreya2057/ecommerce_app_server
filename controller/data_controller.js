@@ -34,9 +34,9 @@ const send_data = async (req, res)=>{
 const update_data = async(req, res)=>{
     try{
         const request = Data(req.body);
-        // Data.findOneAndUpdate(filter, updated_data)
         const existingData = await Data.findOne({data: "data1"})
         if(existingData!==null){
+            // updateOne()-> Updating single data
             const updated_data = await Data.updateOne({data: request.data});
             res.json({message: "Data updated", status: 200});
         } else{
