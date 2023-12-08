@@ -46,4 +46,19 @@ const update_data = async(req, res)=>{
     }   
 };
 
-export default {get_data, send_data, update_data};
+const delete_data = async(req, res)=>{
+    try{
+        const request = Data(req.body);
+        const existingData = await Data.findOne({data: request.data});
+        if(existingData!==null){
+            const deleted_data = await Data.deleteOne({data: request.data});
+            res.json({message: "Data deleted", status: 200});
+        } else{
+            res.json({message: "Data does not exists", status: 400});
+        }
+    } catch(error){
+        res.json({message: error.message, status: 400})
+    }
+}
+
+export default {get_data, send_data, update_data, delete_data};
