@@ -46,3 +46,21 @@ import dotenv from "dotenv";
 dotenv.config();
 const variable = process.env.env_variable_name;
 ```
+
+## Cors
+
+CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to restrict web pages from making requests to a different domain than the one that served the original web page. CORS issues may encounter while building a web application with an API on a different domain.
+
+Express provides the cors middleware to handle CORS headers and enable cross-origin requests.
+
+<u>Installing cors</u>
+
+```
+npm install cors
+```
+
+<u>Using cors</u>
+
+```
+app.use(cors());
+```
