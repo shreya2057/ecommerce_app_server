@@ -32,7 +32,7 @@ $ npm install mongoose
 ## dotenv
 dotenv is a popular npm package in the Node.js ecosystem that allows to load environment variables from a .env file into the process.env object. This is particularly useful for storing configuration settings and sensitive information in Node.js applications without hardcoding them into the code. The process.env object in Node.js provides access to the user environment. It is a global object that contains information about the environment in which the process is running, including system-specific details and user-defined environment variables.
 
-<u>Installing mongoose</u>
+<u>Installing dotenv</u>
 
 ```
 $ npm install dotenv
