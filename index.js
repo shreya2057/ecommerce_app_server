@@ -1,7 +1,10 @@
 import express from "express";
 import mongoDB_connection from "./mongodb/connection.js";
-import data_routes from "./router/data.js"
-import cors from "cors"
+import data_routes from "./router/data.js";
+import auth_routes from "./router/auth.js";
+import cors from "cors";
+
+import bodyParser from "body-parser";
 
 const app = express();
 const port = 8000;
@@ -10,15 +13,16 @@ const port = 8000;
 mongoDB_connection();
 
 app.use(cors());
-app.use(express.json())
+app.use(bodyParser.json());
 
-// app.use() -> The function that is used to add middleware function in 
+// app.use() -> The function that is used to add middleware function in
 //              the application.
-app.use('/data', data_routes);
+app.use("/data", data_routes);
+app.use("/auth", auth_routes);
 
 // Handling routes that does not exist
-app.use((_, res)=>res.json({message: "Page not found", status: 404}));
+app.use((_, res) => res.json({ message: "Page not found", status: 404 }));
 
 // app.listen() -> The function that binds and listen to connections
 //                 on specified host and port.
-app.listen(port, ()=>console.log(`Server listening to the port ${port}`));
+app.listen(port, () => console.log(`Server listening to the port ${port}`));
