@@ -6,13 +6,11 @@ function generateAccessToken(userId) {
   return jwt.sign({ userId }, "access_secret", { expiresIn: "15m" });
 }
 
-// Generate Refresh Token
 function generateRefreshToken(userId) {
   return jwt.sign({ userId }, "refresh_secret", { expiresIn: "7d" });
 }
 
 const signup = async (req, res) => {
-  console.log(req.body);
   try {
     const { email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -35,7 +33,7 @@ const login = async (req, res) => {
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      res.status(401).json({ error: "Authentication failed" });
+      res.status(401).json({ error: "Password did not match" });
       return;
     }
     const accessToken = generateAccessToken(user._id);
@@ -46,4 +44,22 @@ const login = async (req, res) => {
   }
 };
 
-export default { signup, login };
+const refreshToken = async (req, res) => {
+  try {
+    const refreshToken = req.body.refreshToken;
+    if (!refreshToken) {
+      return res.status(401).json({ error: "Refresh token not provided" });
+    }
+    jwt.verify(refreshToken, "refresh_secret", (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ error: "Invalid refresh token" });
+      }
+      const accessToken = generateAccessToken(decoded.userId);
+      res.json({ accessToken });
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Refresh token error occured" });
+  }
+};
+
+export default { signup, login, refreshToken };
