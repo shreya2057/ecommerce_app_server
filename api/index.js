@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 //              the application.
 app.use("/data", data_routes);
 app.use("/auth", auth_routes);
+app.get("/", (req, res) => res.send("server running"));
 
 // Handling routes that does not exist
 app.use((_, res) => res.json({ message: "Page not found", status: 404 }));
