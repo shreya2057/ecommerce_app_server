@@ -24,19 +24,6 @@ app.get("/", (req, res) => res.send("server running"));
 // Handling routes that does not exist
 app.use((_, res) => res.json({ message: "Page not found", status: 404 }));
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  next();
-});
-
 // app.listen() -> The function that binds and listen to connections
 //                 on specified host and port.
 app.listen(port, () => console.log(`Server listening to the port ${port}`));
